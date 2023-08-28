@@ -18,7 +18,7 @@ Feature: Testing USERS_ENDPOINT with DefaultHeader
     And match response.error == 'Missing password'
 
   @SuccesOutline
-  Scenario Outline: post DefaultHeader
+  Scenario Outline: CreateUserPost
     Given path 'users'
     And request userService
     And request { "name": "<name>", "job": "<job>" }
@@ -29,7 +29,7 @@ Feature: Testing USERS_ENDPOINT with DefaultHeader
     Examples:
       | name  | job     | statusCode |
       | jason | teacher| 201 |
-      | emre | engineer | 201 |
+      | hilal | engineer | 201 |
 
   @SuccessPostRegister2
   Scenario: RegisterSuccessful2
