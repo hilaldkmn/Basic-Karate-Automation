@@ -4,6 +4,20 @@ Feature: Testing USERS_ENDPOINT with DefaultHeader
     * url "https://reqres.in/api/"
     * def userService = { "name": "", "job": "" }
     * def DefaultHeader = { "Accept": "application/json" }
+    * def req = read('body/bodyPost.json')
+
+  Scenario: RegisterUnSuccessful
+    Given path 'register'
+    And request req.registerBodyUnSuccessful
+    When method post
+    Then status 400
+    And match response.error == 'Missing password'
+
+  Scenario: Get Single User
+    Given path 'users/2'
+    When method get
+    Then status 200
+    And match response.data.first_name == 'Janet'
 
   Scenario Outline: post DefaultHeader
     Given path 'users'
@@ -17,12 +31,4 @@ Feature: Testing USERS_ENDPOINT with DefaultHeader
       | name  | job     | statusCode |
       | jason | teacher| 201 |
       | emre | engineer | 201 |
-      | ahmet | dentist | 201 |
-      | pelin | doctor | 201 |
-      | akif | actor | 201 |
-      | fatma | author | 201 |
-      | leyla | actress | 201 |
-      | furkan | painter | 201 |
-      | erdem | musician | 201 |
-      |  | musician | 201 |
-      | erdem |  | 201 |
+
